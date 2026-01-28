@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://hgrkrvcswfk1"]
+
+[ext_resource type="PackedScene" uid="uid://cqax2shxhbqrm" path="res://walker/walker.tscn" id="1_rupst"]
+[ext_resource type="Texture2D" uid="uid://dixbv6fkide1o" path="res://icon.svg" id="2_wt17y"]
+[ext_resource type="PackedScene" uid="uid://da5da4t1ah381" path="res://greyboxing/wall.tscn" id="3_m8u5f"]
+
+[node name="Playground" type="Node2D" unique_id=1159659867]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1605787862]
+
+[node name="Walker" parent="." unique_id=1008795349 instance=ExtResource("1_rupst")]
+
+[node name="Sprite2D" type="Sprite2D" parent="Walker" unique_id=1791897846]
+texture = ExtResource("2_wt17y")
+
+[node name="Wall" parent="." unique_id=1058521146 instance=ExtResource("3_m8u5f")]
+position = Vector2(-8.999999, 504)
+scale = Vector2(14.888344, -0.47762573)
+
+[node name="Wall2" parent="." unique_id=1804080742 instance=ExtResource("3_m8u5f")]
+position = Vector2(0.99999994, -504)
+scale = Vector2(14.888344, -0.47762573)
+
+[node name="Wall3" parent="." unique_id=2120878826 instance=ExtResource("3_m8u5f")]
+position = Vector2(930, -2)
+rotation = 1.5707964
+scale = Vector2(8.608343, -0.47762573)
+
+[node name="Wall4" parent="." unique_id=1807976714 instance=ExtResource("3_m8u5f")]
+position = Vector2(-929, 5)
+rotation = 1.5707964
+scale = Vector2(8.608343, -0.47762573)
