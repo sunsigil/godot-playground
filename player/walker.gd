@@ -1,5 +1,8 @@
 extends Node2D
 
+@export
+var body: Node2D;
+
 enum MoveState {
 	WALK,
 	DASH
@@ -8,15 +11,25 @@ var state : MoveState = MoveState.WALK;
 
 @export
 var speed: float = 600;
+@export
+var heading_weight: float = 2;
+@export
+var heading_delay: float = 1;
+@export
+var velocity_delay: float = 0.1;
 
 var input: Vector2 = Vector2.ZERO;
 var input_last: Vector2 = Vector2.ZERO;
 var input_delta: Vector2 = Vector2.ZERO;
+
 var input_weight: Vector2 = Vector2.ZERO;
+var weight_time: float = 0;
 
 var heading: Vector2 = Vector2.ZERO;
 var velocity: Vector2 = Vector2.ZERO;
 
+@export
+var dash_waypoint: Node2D;
 @export
 var dash_range: float = 400;
 @export
@@ -44,12 +57,18 @@ func walk_tick(delta):
 	if Input.is_action_pressed("game_down"):
 		input.y += 1;
 	input_delta = input - input_last;
-		
-	input_weight += abs(input_delta) * input * 2;
-	heading = input.normalized() + input_weight;
-	input_weight *= 0.75;
 	
-	velocity = lerp(velocity, heading, 8*delta);
+	heading = input.normalized();
+	if input_delta != Vector2.ZERO:
+		input_weight = abs(input_delta) * heading * heading_weight;
+		weight_time = 0;
+	if weight_time <= heading_delay:
+		heading += input_weight;
+		input_weight = lerp(input_weight, Vector2.ZERO, weight_time/heading_delay);
+		weight_time += delta;
+	
+	print(heading.length(), " ", velocity.length());
+	velocity = lerp(velocity, heading, delta/velocity_delay);
 	position += velocity * speed * delta;
 	
 func dash_start(direction: Vector2):
@@ -66,17 +85,27 @@ func dash_tick(delta):
 	if t >= 1:
 		state = MoveState.WALK;
 
+func handle_body():
+	if body == null:
+		return;
+	body.rotation = velocity.angle();
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	match state:
 		MoveState.WALK:
 			walk_tick(delta);
 			if Input.is_action_just_pressed("game_progress"):
-				dash_start(heading);
+				var dash_direction = heading if !dash_waypoint else dash_waypoint.position - position;
+				dash_start(dash_direction);
 		MoveState.DASH:
 			dash_tick(delta);
+	handle_body();
 	
 func _draw():
-	draw_line(Vector2.ZERO, input * speed, Color.BLUE);
-	draw_line(Vector2.ZERO, heading*speed, Color.RED);
-	draw_line(Vector2.ZERO, velocity*speed, Color.GREEN);
+	var scale_factor = 200;
+	draw_line(Vector2.ZERO, input * scale_factor, Color.BLUE);
+	draw_line(Vector2.ZERO, heading * scale_factor, Color.RED);
+	draw_line(Vector2.ZERO, velocity * scale_factor, Color.GREEN);
+	draw_line(input * scale_factor, heading * scale_factor, Color.BLUE);
+	draw_line(heading * scale_factor, velocity * scale_factor, Color.RED);
