@@ -2,9 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://cqax2shxhbqrm" path="res://player/walker.tscn" id="1_rupst"]
 [ext_resource type="Texture2D" uid="uid://dixbv6fkide1o" path="res://icon.svg" id="2_wt17y"]
+[ext_resource type="Script" uid="uid://c4yxg3e8kh1i6" path="res://player/player.gd" id="3_4bqqs"]
 [ext_resource type="PackedScene" uid="uid://dy3xhhvo4tlg2" path="res://player/camera.tscn" id="3_is3ju"]
 [ext_resource type="PackedScene" uid="uid://da5da4t1ah381" path="res://greyboxing/wall.tscn" id="3_m8u5f"]
 [ext_resource type="PackedScene" uid="uid://ufp8m6ordesh" path="res://player/orbital.tscn" id="4_o00ia"]
+[ext_resource type="PackedScene" uid="uid://dtgywicxqs50" path="res://entity/enemy.tscn" id="6_ynsuh"]
 
 [node name="Playground" type="Node2D" unique_id=1159659867]
 
@@ -13,6 +15,9 @@ body = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="Walker" unique_id=1791897846]
 texture = ExtResource("2_wt17y")
+
+[node name="Node2D" type="Node2D" parent="Walker" unique_id=914932707]
+script = ExtResource("3_4bqqs")
 
 [node name="Camera" parent="." unique_id=596543648 node_paths=PackedStringArray("target") instance=ExtResource("3_is3ju")]
 target = NodePath("../Walker")
@@ -24,6 +29,9 @@ radius = 150.0
 [node name="Sprite2D" type="Sprite2D" parent="Orbital" unique_id=936841746]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_wt17y")
+
+[node name="Enemy" parent="." unique_id=294014635 instance=ExtResource("6_ynsuh")]
+position = Vector2(-541, -167)
 
 [node name="Environment" type="Node" parent="." unique_id=2067740291]
 

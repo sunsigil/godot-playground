@@ -67,9 +67,8 @@ func walk_tick(delta):
 		input_weight = lerp(input_weight, Vector2.ZERO, weight_time/heading_delay);
 		weight_time += delta;
 	
-	print(heading.length(), " ", velocity.length());
-	velocity = lerp(velocity, heading, delta/velocity_delay);
-	position += velocity * speed * delta;
+	velocity = lerp(velocity, heading*speed, delta/velocity_delay);
+	position += velocity * delta;
 	
 func dash_start(direction: Vector2):
 	direction = direction.normalized();
@@ -106,6 +105,4 @@ func _draw():
 	var scale_factor = 200;
 	draw_line(Vector2.ZERO, input * scale_factor, Color.BLUE);
 	draw_line(Vector2.ZERO, heading * scale_factor, Color.RED);
-	draw_line(Vector2.ZERO, velocity * scale_factor, Color.GREEN);
-	draw_line(input * scale_factor, heading * scale_factor, Color.BLUE);
-	draw_line(heading * scale_factor, velocity * scale_factor, Color.RED);
+	draw_line(Vector2.ZERO, velocity.normalized() * scale_factor, Color.GREEN);
