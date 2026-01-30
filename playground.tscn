@@ -1,54 +1,52 @@
 [gd_scene format=3 uid="uid://hgrkrvcswfk1"]
 
-[ext_resource type="PackedScene" uid="uid://cqax2shxhbqrm" path="res://player/walker.tscn" id="1_rupst"]
-[ext_resource type="Texture2D" uid="uid://dixbv6fkide1o" path="res://icon.svg" id="2_wt17y"]
-[ext_resource type="Script" uid="uid://c4yxg3e8kh1i6" path="res://player/player.gd" id="3_4bqqs"]
 [ext_resource type="PackedScene" uid="uid://dy3xhhvo4tlg2" path="res://player/camera.tscn" id="3_is3ju"]
 [ext_resource type="PackedScene" uid="uid://da5da4t1ah381" path="res://greyboxing/wall.tscn" id="3_m8u5f"]
-[ext_resource type="PackedScene" uid="uid://ufp8m6ordesh" path="res://player/orbital.tscn" id="4_o00ia"]
+[ext_resource type="PackedScene" uid="uid://csyjusrfcxdi8" path="res://player/player.tscn" id="4_is3ju"]
 [ext_resource type="PackedScene" uid="uid://dtgywicxqs50" path="res://entity/enemy.tscn" id="6_ynsuh"]
 
 [node name="Playground" type="Node2D" unique_id=1159659867]
 
-[node name="Walker" parent="." unique_id=1008795349 node_paths=PackedStringArray("body") instance=ExtResource("1_rupst")]
-body = NodePath("Sprite2D")
-
-[node name="Sprite2D" type="Sprite2D" parent="Walker" unique_id=1791897846]
-texture = ExtResource("2_wt17y")
-
-[node name="Node2D" type="Node2D" parent="Walker" unique_id=914932707]
-script = ExtResource("3_4bqqs")
+[node name="Player" parent="." unique_id=395614979 instance=ExtResource("4_is3ju")]
 
 [node name="Camera" parent="." unique_id=596543648 node_paths=PackedStringArray("target") instance=ExtResource("3_is3ju")]
-target = NodePath("../Walker")
+target = NodePath("../Player")
 
-[node name="Orbital" parent="." unique_id=1642983030 node_paths=PackedStringArray("body") instance=ExtResource("4_o00ia")]
-body = NodePath("../Walker")
-radius = 150.0
-
-[node name="Sprite2D" type="Sprite2D" parent="Orbital" unique_id=936841746]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_wt17y")
+[node name="Enemy2" parent="." unique_id=2072336256 instance=ExtResource("6_ynsuh")]
+position = Vector2(-573, 451)
 
 [node name="Enemy" parent="." unique_id=294014635 instance=ExtResource("6_ynsuh")]
 position = Vector2(-541, -167)
 
+[node name="Enemy3" parent="." unique_id=1751403808 instance=ExtResource("6_ynsuh")]
+position = Vector2(-1097, 46)
+
 [node name="Environment" type="Node" parent="." unique_id=2067740291]
 
 [node name="Wall" parent="Environment" unique_id=1058521146 instance=ExtResource("3_m8u5f")]
-position = Vector2(-8.999999, 504)
-scale = Vector2(14.888344, -0.47762573)
+position = Vector2(-40, 955)
+scale = Vector2(24.320002, 1)
 
-[node name="Wall2" parent="Environment" unique_id=1804080742 instance=ExtResource("3_m8u5f")]
-position = Vector2(0.99999994, -504)
-scale = Vector2(14.888344, -0.47762573)
+[node name="Wall2" parent="Environment" unique_id=1196461258 instance=ExtResource("3_m8u5f")]
+position = Vector2(-21.000002, -944.9999)
+scale = Vector2(24.320002, 1)
 
-[node name="Wall3" parent="Environment" unique_id=2120878826 instance=ExtResource("3_m8u5f")]
-position = Vector2(930, -2)
-rotation = 1.5707964
-scale = Vector2(8.608343, -0.47762573)
+[node name="Wall3" parent="Environment" unique_id=1816474691 instance=ExtResource("3_m8u5f")]
+position = Vector2(1969.9999, -334.99994)
+rotation = 0.9023401
+scale = Vector2(24.320002, 1)
 
-[node name="Wall4" parent="Environment" unique_id=1807976714 instance=ExtResource("3_m8u5f")]
-position = Vector2(-929, 5)
-rotation = 1.5707964
-scale = Vector2(8.608343, -0.47762573)
+[node name="Wall4" parent="Environment" unique_id=2097864725 instance=ExtResource("3_m8u5f")]
+position = Vector2(1984, 378)
+rotation = 2.2765126
+scale = Vector2(24.320002, 1)
+
+[node name="Wall5" parent="Environment" unique_id=972477879 instance=ExtResource("3_m8u5f")]
+position = Vector2(-2192, -315)
+rotation = 2.4529555
+scale = Vector2(24.320002, 1)
+
+[node name="Wall6" parent="Environment" unique_id=1251013973 instance=ExtResource("3_m8u5f")]
+position = Vector2(-2177.9995, 397.99994)
+rotation = 3.827128
+scale = Vector2(24.320002, 1)

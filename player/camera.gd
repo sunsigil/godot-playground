@@ -13,4 +13,6 @@ func _process(delta: float) -> void:
 	pass;
 	
 func _physics_process(delta: float) -> void:
+	if target == null:
+		return;
 	position = lerp(position, target.position, 6 * delta);
